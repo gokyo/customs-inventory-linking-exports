@@ -80,7 +80,7 @@ class FlatterModelSpec extends UnitSpec with MockitoSugar {
    * eg `r.badgeIdentifier` vs `r.extractedHeaders.badgeIdentifier`
    */
 
-  case class ConversationIdRequest[A](
+  case class CorrelationIdsRequest[A](
                                        conversationId: ConversationId,
                                        correlationId: CorrelationId,
                                        request: Request[A]
@@ -123,11 +123,11 @@ class FlatterModelSpec extends UnitSpec with MockitoSugar {
      */
 
     def dummyLoggingApi1(implicit x: HasCorrelationIds with HasExtractedHeaders) = {
-      println(s" ${x.value} ${x.clientId}")
+      println(s" ${x.conversationId} ${x.badgeIdentifier}")
     }
 
     def dummyLoggingApi2(implicit x: HasCorrelationIds with HasExtractedHeaders with HasValidatedPayload) = {
-      println(s" ${x.value} ${x.clientId} payload=${x.validatedPayload.toString}")
+      println(s" ${x.conversationId} ${x.clientId} payload=${x.validatedPayload.toString}")
     }
 
     val mockRequest = mock[Request[_]]
