@@ -80,12 +80,14 @@ class FlatterModelSpec extends UnitSpec with MockitoSugar {
    * eg `r.badgeIdentifier` vs `r.extractedHeaders.badgeIdentifier`
    */
 
+  // Available after CorrelationIdsAction builder
   case class CorrelationIdsRequest[A](
                                        conversationId: ConversationId,
                                        correlationId: CorrelationId,
                                        request: Request[A]
                                      ) extends WrappedRequest[A](request) with HasCorrelationIds
 
+  // Available after ValidatedHeadersAction builder
   case class ValidatedHeadersRequest[A](
     conversationId: ConversationId,
     correlationId: CorrelationId,
@@ -94,6 +96,7 @@ class FlatterModelSpec extends UnitSpec with MockitoSugar {
     clientId: ClientId,
     request: Request[A]) extends WrappedRequest[A](request) with HasCorrelationIds with HasExtractedHeaders
 
+  // Available after AuthoriseAction builder
   case class AuthorisedRequest[A](
     conversationId: ConversationId,
     correlationId: CorrelationId,
@@ -103,6 +106,7 @@ class FlatterModelSpec extends UnitSpec with MockitoSugar {
     someAuthStuff: String,
     request: Request[A]) extends WrappedRequest[A](request) with HasCorrelationIds with HasExtractedHeaders with HasAuthData
 
+  // Available after ValidatedPayloadAction builder
   case class ValidatedPayloadRequest[A](
     conversationId: ConversationId,
     correlationId: CorrelationId,
